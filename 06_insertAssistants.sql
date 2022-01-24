@@ -9,7 +9,7 @@ INSERT INTO Assistant
 INSERT INTO Assistant
  (Name, SuperheroId)
  VALUES
- ('Wonder Girl', (
+ ('Miriam', (
   SELECT Id FROM Superhero
   WHERE Alias = 'Wonder Woman'
  ));
@@ -17,7 +17,7 @@ INSERT INTO Assistant
 INSERT INTO Assistant 
   (Name, SuperheroId)
   VALUES
-  ('Amazing Girl', (
+  ('Anne', (
    SELECT Id FROM Superhero
    WHERE Alias = 'Wonder Woman'
   ));
