@@ -2314,19 +2314,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\MAarag\\.nuget\\packages\\": {}
+    "C:\\Users\\ALarse\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MAarag\\Source\\Repos\\MiriTam\\Assignment2SQL\\PartB\\Assignment2B\\Assignment2B\\Assignment2B.csproj",
+      "projectUniqueName": "C:\\Users\\ALarse\\source\\repos\\Assignment2SQL\\PartB\\Assignment2B\\Assignment2B\\Assignment2B.csproj",
       "projectName": "Assignment2B",
-      "projectPath": "C:\\Users\\MAarag\\Source\\Repos\\MiriTam\\Assignment2SQL\\PartB\\Assignment2B\\Assignment2B\\Assignment2B.csproj",
-      "packagesPath": "C:\\Users\\MAarag\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MAarag\\Source\\Repos\\MiriTam\\Assignment2SQL\\PartB\\Assignment2B\\Assignment2B\\obj\\",
+      "projectPath": "C:\\Users\\ALarse\\source\\repos\\Assignment2SQL\\PartB\\Assignment2B\\Assignment2B\\Assignment2B.csproj",
+      "packagesPath": "C:\\Users\\ALarse\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ALarse\\source\\repos\\Assignment2SQL\\PartB\\Assignment2B\\Assignment2B\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\MAarag\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ALarse\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
