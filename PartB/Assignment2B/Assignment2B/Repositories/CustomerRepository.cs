@@ -16,10 +16,18 @@ namespace Assignment2B.Repositories
                     connection.Open();
                     Console.WriteLine("Connection open.");
 
-                    string sql = "INSERT ";
+                    string sql = "INSERT INTO Customer (FirstName, LastName, Country, PostalCode, Phone, Email) "
+                        + "VALUES (@FirstName, @LastName, @Country, @PostalCode, @Phone, @Email);";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-
+   
+                        command.Parameters.AddWithValue("@FirstName", customer.FirstName);
+                        command.Parameters.AddWithValue("@LastName", customer.LastName);
+                        command.Parameters.AddWithValue("@Country", customer.Country);
+                        command.Parameters.AddWithValue("@PostalCode", customer.PostalCode);
+                        command.Parameters.AddWithValue("@Phone", customer.Phone);
+                        command.Parameters.AddWithValue("@Email", customer.Email);
+                        command.ExecuteNonQuery();
                     }
                 }
             }
