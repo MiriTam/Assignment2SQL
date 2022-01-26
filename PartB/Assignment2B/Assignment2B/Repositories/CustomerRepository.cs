@@ -282,5 +282,42 @@ namespace Assignment2B.Repositories
             }
             return countries;
         }
+
+        public List<CustomerSpender> GetCustomerSpending()
+        {
+            List<CustomerSpender> customerSpendings = new List<CustomerSpender>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
+                {
+                    connection.Open();
+                    Console.WriteLine("Connection open.");
+
+                    string sql = "SELECT CustomerId, SUM(Total) " +
+                        "FROM Invoice " +
+                        "GROUP BY CustomerId " +
+                        "ORDER BY SUM(Total) DESC";
+                        
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CustomerSpender spender = new CustomerSpender();
+                                spender.CustomerId = reader.GetInt32(0);
+                                spender.TotalSpending = reader.GetDecimal(1);
+                                customerSpendings.Add(spender);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return customerSpendings;
+        }
     }
 }

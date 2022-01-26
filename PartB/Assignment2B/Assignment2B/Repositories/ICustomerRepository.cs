@@ -10,7 +10,7 @@ namespace Assignment2B.Repositories
     internal interface ICustomerRepository
     {
         /// <summary>
-        /// Takes in customer id as an int.
+        /// Method takes in customer id as an int.
         /// Returns the customer with the given id.
         /// </summary>
         /// <param name="id">Int id of customer.</param>
@@ -18,7 +18,7 @@ namespace Assignment2B.Repositories
         public Customer GetCustomer(int id);
 
         /// <summary>
-        /// Takes name of a customer as a string.
+        /// Method takes name of a customer as a string.
         /// Returns the customer with the given name.
         /// </summary>
         /// <param name="name">String name of customer.</param>
@@ -26,13 +26,13 @@ namespace Assignment2B.Repositories
         public Customer GetCustomer(string name);
 
         /// <summary>
-        /// Returns a  list containing all customers in the database.
+        /// Method returns a list containing all customers in the database.
         /// </summary>
         /// <returns>List of customer objects.</returns>
         public List<Customer> GetAllCustomers();
 
         /// <summary>
-        /// Returns a page of given length with customers.
+        /// Method returns a page of given length with customers.
         /// </summary>
         /// <param name="pageLength">Length of customer page.</param>
         /// <param name="skip">Starting point for customer page.</param>
@@ -40,33 +40,39 @@ namespace Assignment2B.Repositories
         public List<Customer> GetPageOfCustomers(int pageLength, int skip);
 
         /// <summary>
-        /// Takes in customer id as an int.
-        /// Deletes the customer with the given id.
+        /// Method takes in customer id as an int, then deletes the 
+        /// customer with the given id.
         /// </summary>
         /// <param name="id">Int id of customer.</param>
         /// <returns>Bool indicating if deletion was successfull.</returns>
         public bool DeleteCustomer(int id);
 
         /// <summary>
-        /// Takes in a customer.
-        /// Adds the new customer to the database.
+        /// Method takes in a customer and adds the new customer to the 
+        /// database.
         /// </summary>
         /// <param name="customer">String name of customer.</param>
         /// <returns>Bool indicating if insertion was successfull.</returns>
         public bool AddNewCustomer(Customer customer);
 
         /// <summary>
-        /// Updates a customer.
+        /// Method updates a customer.
         /// </summary>
         /// <param name="customer">Customer to be updated.</param>
         /// <returns>Bool indicating if update was successfull.</returns>
         public bool UpdateCustomer(Customer customer);
 
         /// <summary>
-        /// Returns a list of all countries in the database and the number
-        /// of customers registered to that country.
+        /// Method returns a list of all countries in the database and the 
+        /// number of customers registered to that country.
         /// </summary>
-        /// <returns>Number of customers per country.</returns>
+        /// <returns>Number of customers by country.</returns>
         public List<CustomerCountry> GetCountryCounts();
+
+        /// <summary>
+        /// Method returns a list of total spending for each customer.
+        /// </summary>
+        /// <returns>Total spending by customer.</returns>
+        public List<CustomerSpender> GetCustomerSpending();
     }
 }

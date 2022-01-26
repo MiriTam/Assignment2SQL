@@ -42,8 +42,11 @@ namespace Assignment2B
             repo.UpdateCustomer(customer3);
             Console.WriteLine(repo.GetCustomer("Anne"));
 
-            List<CustomerCountry> contries = repo.GetCountryCounts();
-            foreach (CustomerCountry country in contries) Console.WriteLine(country);
+            //List<CustomerCountry> contries = repo.GetCountryCounts();
+            //foreach (CustomerCountry country in contries) Console.WriteLine(country);
+
+            List<CustomerSpender> spends = repo.GetCustomerSpending();
+            foreach (CustomerSpender spend in spends) Console.WriteLine(spend);
         }
 
         public static string GetConnectionString()
