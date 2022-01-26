@@ -246,5 +246,41 @@ namespace Assignment2B.Repositories
             }
             return true;
         }
+
+        public static List<CustomerCountry> GetCountryCounts()
+        {
+            List<CustomerCountry> countries = new List<CustomerCountry>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
+                {
+                    connection.Open();
+                    Console.WriteLine("Connection open.");
+
+                    string sql = "SELECT Country, COUNT(DISTINCT CustomerId)" +
+                        " FROM Customer " +
+                        "GROUP BY Country " +
+                        "ORDER BY COUNT(CustomerId) DESC;";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CustomerCountry country = new CustomerCountry();
+                                country.CountryName = reader.GetString(0);
+                                country.CustomerCount = reader.GetInt32(1);
+                                countries.Add(country);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return countries;
+        }
     }
 }

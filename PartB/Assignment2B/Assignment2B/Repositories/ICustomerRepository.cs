@@ -61,5 +61,12 @@ namespace Assignment2B.Repositories
         /// <param name="customer">Customer to be updated.</param>
         /// <returns>Bool indicating if update was successfull.</returns>
         public bool UpdateCustomer(Customer customer);
+
+        /// <summary>
+        /// Returns a list of all countries in the database and the number
+        /// of customers registered to that country.
+        /// </summary>
+        /// <returns>Number of customers per country.</returns>
+        public List<CustomerCountry> GetCountryCounts();
     }
 }
