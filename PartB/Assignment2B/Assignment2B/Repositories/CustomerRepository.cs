@@ -143,16 +143,17 @@ namespace Assignment2B.Repositories
                     connection.Open();
                     Console.WriteLine("Connection open.");
 
-                    string sql = //$"SELECT ALL CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email FROM Customer;" +
-                        $"DECLARE cursor CURSOR FOR" +
-                        $"SELECT ALL CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email FROM Customer;" +
-                        $"OPEN cursor;" +
-                        $"FETCH NEXT FROM cursor;";
-                        //$"@pageLength;";
+                    string sql =
+                        $"SELECT ALL CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email " +
+                        $"FROM Customer " +
+                        $"ORDER BY CustomerId ASC " +
+                        $"OFFSET @skip ROWS " +
+                        $"FETCH NEXT @pageLength ROWS ONLY;";
+
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@pageLength", pageLength);
-                        //command.Parameters.AddWithValue("@skip", skip);
+                        command.Parameters.AddWithValue("@skip", skip);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
