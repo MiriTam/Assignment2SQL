@@ -247,7 +247,7 @@ namespace Assignment2B.Repositories
             return true;
         }
 
-        public static List<CustomerCountry> GetCountryCounts()
+        public List<CustomerCountry> GetCountryCounts()
         {
             List<CustomerCountry> countries = new List<CustomerCountry>();
             try

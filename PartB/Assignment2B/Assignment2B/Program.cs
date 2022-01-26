@@ -42,7 +42,7 @@ namespace Assignment2B
             repo.UpdateCustomer(customer3);
             Console.WriteLine(repo.GetCustomer("Anne"));
 
-            List<CustomerCountry> contries = GetCountryCounts();
+            List<CustomerCountry> contries = repo.GetCountryCounts();
             foreach (CustomerCountry country in contries) Console.WriteLine(country);
         }
 
@@ -56,42 +56,6 @@ namespace Assignment2B
             builder.IntegratedSecurity = true;
 
             return builder.ConnectionString;
-        }
-
-        public static List<CustomerCountry> GetCountryCounts()
-        {
-            List<CustomerCountry> countries = new List<CustomerCountry>();
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
-                {
-                    connection.Open();
-                    Console.WriteLine("Connection open.");
-
-                    string sql = "SELECT Country, COUNT(DISTINCT CustomerId)" +
-                        " FROM Customer " +
-                        "GROUP BY Country " +
-                        "ORDER BY COUNT(CustomerId) DESC;";
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                CustomerCountry country = new CustomerCountry();
-                                country.CountryName = reader.GetString(0);
-                                country.CustomerCount = reader.GetInt32(1);
-                                countries.Add(country);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return countries;
         }
     }
 }
