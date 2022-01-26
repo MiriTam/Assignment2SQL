@@ -36,6 +36,11 @@ namespace Assignment2B
             repo.AddNewCustomer(customer2);
             Console.WriteLine(repo.GetCustomer("Miriam"));
 
+            Customer customer3 = repo.GetCustomer("Miriam");
+            customer3.FirstName = "Anne";
+            customer3.PostalCode = "5012";
+            repo.UpdateCustomer(customer3);
+            Console.WriteLine(repo.GetCustomer("Anne"));
         }
 
         public static string GetConnectionString()

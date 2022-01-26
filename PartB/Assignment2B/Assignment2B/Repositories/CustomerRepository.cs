@@ -211,7 +211,40 @@ namespace Assignment2B.Repositories
 
         public bool UpdateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
+                {
+                    connection.Open();
+                    Console.WriteLine("Connection open.");
+
+                    string sql = "UPDATE Customer SET " +
+                        "FirstName = @FirstName, " +
+                        "LastName = @LastName, " +
+                        "Country = @Country, " +
+                        "PostalCode = @PostalCode, " +
+                        "Phone = @Phone, " +
+                        "Email = @Email " +
+                        "WHERE CustomerId = @CustomerId;";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@CustomerId", customer.Id);
+                        command.Parameters.AddWithValue("@FirstName", customer.FirstName);
+                        command.Parameters.AddWithValue("@LastName", customer.LastName);
+                        command.Parameters.AddWithValue("@Country", customer.Country);
+                        command.Parameters.AddWithValue("@PostalCode", customer.PostalCode);
+                        command.Parameters.AddWithValue("@Phone", customer.Phone);
+                        command.Parameters.AddWithValue("@Email", customer.Email);
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            return true;
         }
     }
 }
