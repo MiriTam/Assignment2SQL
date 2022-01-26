@@ -9,7 +9,26 @@ namespace Assignment2B.Repositories
     {
         public bool AddNewCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
+                {
+                    connection.Open();
+                    Console.WriteLine("Connection open.");
+
+                    string sql = "INSERT ";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            return true;
         }
 
         public bool DeleteCustomer( int id)

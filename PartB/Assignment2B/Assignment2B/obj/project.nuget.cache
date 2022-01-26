@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6G7uXn77R0fypZddBUimhPmQ1GSqX3S/dVRA7jbC73iy5P89gE8s1Nt3mcHC6/aebQKSyNqtWtvTxFF7zb6Pig==",
+  "dgSpecHash": "OlpcEjz07+kVWoky0Sdw0Nlq+3axIfyBF+kzevuc2kfW57UHL1a+V/Zj05/e41yCf8Z9lxMlgeMKdUvJC0wqyg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ALarse\\Source\\Repos\\Assignment2SQL\\PartB\\Assignment2B\\Assignment2B\\Assignment2B.csproj",
+  "projectFilePath": "C:\\Users\\ALarse\\source\\repos\\Assignment2SQL\\PartB\\Assignment2B\\Assignment2B\\Assignment2B.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ALarse\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\ALarse\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
