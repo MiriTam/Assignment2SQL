@@ -13,7 +13,7 @@ namespace Assignment2B.Models
 
         public override string ToString()
         {
-            return $"{CountryName}: {CustomerCount}";
+            return $"Country: {CountryName}, CustomerCount: {CustomerCount}";
         }
     }
 }
