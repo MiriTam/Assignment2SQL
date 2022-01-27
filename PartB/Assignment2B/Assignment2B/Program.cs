@@ -10,19 +10,21 @@ namespace Assignment2B
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello SQL!");
-
-
+            //Print all customers.
             CustomerRepository repo = new CustomerRepository();
             List<Customer> liste = repo.GetAllCustomers();
-            foreach (Customer customer in liste) Console.WriteLine(customer);
+            foreach (Customer customer1 in liste) Console.WriteLine(customer1);
 
+            //Fetch a single customer.
             Console.WriteLine(repo.GetCustomer(6));
             Console.WriteLine(repo.GetCustomer("Bjørn"));
-            List<Customer> customersPage = repo.GetPageOfCustomers(5, 3);
-            foreach (Customer customer1 in customersPage) Console.WriteLine(customer1);
 
-            Customer customer2 = new Customer
+            //Get a page of customers.
+            List<Customer> customersPage = repo.GetPageOfCustomers(5, 3);
+            foreach (Customer customer2 in customersPage) Console.WriteLine(customer2);
+
+            //Create and add new customer.
+            Customer customer3 = new Customer
             {
                 Id = 798,
                 FirstName = "Miriam",
@@ -32,32 +34,43 @@ namespace Assignment2B
                 Phone = "113",
                 Email = "mkmfwff"
             };
-
-            repo.AddNewCustomer(customer2);
+            repo.AddNewCustomer(customer3);
             Console.WriteLine(repo.GetCustomer("Miriam"));
 
-            Customer customer3 = repo.GetCustomer("Miriam");
-            customer3.FirstName = "Anne";
-            customer3.PostalCode = "5012";
-            repo.UpdateCustomer(customer3);
+            //Update customer.
+            Customer customer4 = repo.GetCustomer("Miriam");
+            customer4.FirstName = "Anne";
+            customer4.PostalCode = "5012";
+            repo.UpdateCustomer(customer4);
             Console.WriteLine(repo.GetCustomer("Anne"));
 
-            //List<CustomerCountry> contries = repo.GetCountryCounts();
-            //foreach (CustomerCountry country in contries) Console.WriteLine(country);
+            //Get number of customers in each country.
+            List<CustomerCountry> contries = repo.GetCountryCounts();
+            foreach (CustomerCountry country in contries) Console.WriteLine(country);
 
+            //Get total spending for each customer.
             List<CustomerSpender> spends = repo.GetCustomerSpending();
             foreach (CustomerSpender spend in spends) Console.WriteLine(spend);
+
+            //Get most popular genre for each customer.
+            List<CustomerGenre> cgs = repo.GetCustomerGenres();
+            foreach (CustomerGenre g in cgs) Console.WriteLine(g);
         }
 
+        /// <summary>
+        /// Method creates and return the connection string used to connect 
+        /// to the database.
+        /// </summary>
+        /// <returns>Connection string.</returns>
         public static string GetConnectionString()
         {
             SqlConnectionStringBuilder builder = new();
+            //Select string based on which computer the code is executed on.
             //builder.DataSource = "ND-5CG92747KF\\SQLEXPRESS";
             builder.DataSource = "ND-5CG9030MCG\\SQLEXPRESS";
             builder.InitialCatalog = "Chinook";
             builder.TrustServerCertificate = true;
             builder.IntegratedSecurity = true;
-
             return builder.ConnectionString;
         }
     }
