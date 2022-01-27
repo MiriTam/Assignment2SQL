@@ -14,10 +14,10 @@ namespace Assignment2B.Repositories
                 using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
                 {
                     connection.Open();
-                    Console.WriteLine("Connection open.");
 
                     string sql = "INSERT INTO Customer (FirstName, LastName, Country, PostalCode, Phone, Email) "
                         + "VALUES (@FirstName, @LastName, @Country, @PostalCode, @Phone, @Email);";
+
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
    
@@ -39,11 +39,6 @@ namespace Assignment2B.Repositories
             return true;
         }
 
-        public bool DeleteCustomer(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Customer> GetAllCustomers()
         {
             List<Customer> customers = new List<Customer>();
@@ -52,9 +47,9 @@ namespace Assignment2B.Repositories
                 using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
                 {
                     connection.Open();
-                    Console.WriteLine("Connection open.");
 
                     string sql = "SELECT ALL CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email FROM Customer";
+                    
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -93,9 +88,9 @@ namespace Assignment2B.Repositories
                 using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
                 {
                     connection.Open();
-                    Console.WriteLine("Connection open.");
 
                     string sql = $"SELECT ALL CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email FROM Customer WHERE CustomerId = '{id}'";
+                    
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -130,9 +125,9 @@ namespace Assignment2B.Repositories
                 using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
                 {
                     connection.Open();
-                    Console.WriteLine("Connection open.");
 
                     string sql = $"SELECT ALL CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email FROM Customer WHERE FirstName LIKE '{name}' OR LastName LIKE '{name}';";
+                    
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -168,7 +163,6 @@ namespace Assignment2B.Repositories
                 using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
                 {
                     connection.Open();
-                    Console.WriteLine("Connection open.");
 
                     string sql =
                         $"SELECT ALL CustomerId, FirstName, LastName, Country, PostalCode, Phone, Email " +
@@ -216,7 +210,6 @@ namespace Assignment2B.Repositories
                 using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
                 {
                     connection.Open();
-                    Console.WriteLine("Connection open.");
 
                     string sql = "UPDATE Customer SET " +
                         "FirstName = @FirstName, " +
@@ -226,6 +219,7 @@ namespace Assignment2B.Repositories
                         "Phone = @Phone, " +
                         "Email = @Email " +
                         "WHERE CustomerId = @CustomerId;";
+
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@CustomerId", customer.Id);
@@ -255,12 +249,12 @@ namespace Assignment2B.Repositories
                 using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
                 {
                     connection.Open();
-                    Console.WriteLine("Connection open.");
 
                     string sql = "SELECT Country, COUNT(DISTINCT CustomerId)" +
                         " FROM Customer " +
                         "GROUP BY Country " +
                         "ORDER BY COUNT(CustomerId) DESC;";
+
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -291,7 +285,6 @@ namespace Assignment2B.Repositories
                 using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
                 {
                     connection.Open();
-                    Console.WriteLine("Connection open.");
 
                     string sql = "SELECT CustomerId, SUM(Total) " +
                         "FROM Invoice " +
@@ -318,6 +311,92 @@ namespace Assignment2B.Repositories
                 Console.WriteLine(ex.Message);
             }
             return customerSpendings;
+        }
+
+        public List<CustomerGenre> GetCustomerGenres()
+        {
+            List<CustomerGenre> customerGenres = new List<CustomerGenre>();
+            List<CustomerGenre> topGenres = new List<CustomerGenre>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Program.GetConnectionString()))
+                {
+                    connection.Open();
+
+                    string sql =
+                        "SELECT COUNT(Genre.Name) as Counts, Invoice.CustomerId as CId, Genre.Name as GName " +
+                        "FROM Invoice " +
+                        "INNER JOIN InvoiceLine " +
+                        "ON Invoice.InvoiceId = InvoiceLine.InvoiceId " +
+                        "INNER JOIN Track " +
+                        "ON InvoiceLine.TrackId = Track.TrackId " +
+                        "INNER JOIN Genre " +
+                        "ON Track.GenreId = Genre.GenreId " +
+                        "GROUP BY Genre.Name, Invoice.CustomerId " +
+                        "ORDER BY CId, Counts DESC;";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            int counts;
+                            int customerId;
+                            string genre;
+
+                            while (reader.Read())
+                            {   
+                                counts = reader.GetInt32(0);
+                                customerId = reader.GetInt32(1);
+                                genre = reader.GetString(2);
+
+                                CustomerGenre temp = new()
+                                {
+                                    CustomerId = customerId,
+                                    Genre = genre,
+                                    Count = counts
+                                };
+
+                                customerGenres.Add(temp);
+                            }
+                        }
+                    }
+                    string genreString = customerGenres[0].Genre;
+                    int id = customerGenres[0].CustomerId;
+                    int count = customerGenres[0].Count;
+                    foreach (CustomerGenre customer in customerGenres)
+                    {
+                        if (!(id == customer.CustomerId))
+                        {
+                            CustomerGenre temp = new()
+                            {
+                                CustomerId = id,
+                                Genre = genreString,
+                                Count = count
+                            };
+                            topGenres.Add(temp);
+
+                            id = customer.CustomerId;
+                            genreString = customer.Genre;
+                            count = 0;
+                        }
+                        else
+                        {
+                            if (customer.Count > count)
+                            {
+                                genreString = customer.Genre;
+                            } else if (customer.Count == count)
+                            {
+                                genreString += ", " + customer.Genre;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return topGenres;
         }
     }
 }
