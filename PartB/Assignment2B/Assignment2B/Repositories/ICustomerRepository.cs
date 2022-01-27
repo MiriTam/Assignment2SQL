@@ -40,14 +40,6 @@ namespace Assignment2B.Repositories
         public List<Customer> GetPageOfCustomers(int pageLength, int skip);
 
         /// <summary>
-        /// Method takes in customer id as an int, then deletes the 
-        /// customer with the given id.
-        /// </summary>
-        /// <param name="id">Int id of customer.</param>
-        /// <returns>Bool indicating if deletion was successfull.</returns>
-        public bool DeleteCustomer(int id);
-
-        /// <summary>
         /// Method takes in a customer and adds the new customer to the 
         /// database.
         /// </summary>
@@ -74,5 +66,11 @@ namespace Assignment2B.Repositories
         /// </summary>
         /// <returns>Total spending by customer.</returns>
         public List<CustomerSpender> GetCustomerSpending();
+
+        /// <summary>
+        /// Method returns a list of the top genres for each customer.
+        /// </summary>
+        /// <returns>List of customers and their top genre.</returns>
+        public List<CustomerGenre> GetCustomerGenres();
     }
 }
