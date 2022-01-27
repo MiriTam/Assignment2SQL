@@ -13,7 +13,7 @@ namespace Assignment2B.Models
 
         public override string ToString()
         {
-            return $"{CustomerId}: {TotalSpending}";
+            return $"Customer id: {CustomerId}, Total spending: {TotalSpending}";
         }
     }
 }
